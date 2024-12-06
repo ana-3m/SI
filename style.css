@@ -1,0 +1,45 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+
+  .menu {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;  /* Indicates it's interactive */
+  }
+
+  .menu-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 0;  /* Ensure it starts from the top of the parent */
+    left: 0; /* Align with the left edge */
+    background-color: #f9f9f9;
+    white-space: nowrap; /* Prevents wrapping of menu items */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    transition: transform 0.3s ease-in-out; /* Smooth drawer effect */
+    transform: translateX(-100%); /* Start off-screen */
+    width: 100vw; /* Full viewport width */
+  }
+
+  .menu:hover .menu-options {
+    transform: translateX(0); /* Slide into view */
+  }
+
+  .menu-option {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: inline-block; /* Display options in a line */
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: calc(screen/4); /* Divide the screen evenly among options */
+    text-align: center; /* Center-align the text */
+  }
+
+  .menu-option:hover {
+    background-color: #ddd; /* Highlight on hover */
+  }
+

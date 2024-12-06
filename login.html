@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>rent-a-car</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+  button {display: none;}
+  </style>
+</head>
+
+<body>
+  <script src="togglep.js"></script>
+
+    <header>
+      <div class="logo">
+        <a href="index.html" title="logotipo">
+          <p>logo</p>
+        </a>
+      </div>
+      <div class="menu">
+        Menu
+        <div class="menu-options">
+          <a class="menu-option" href="frota.html"">Frota</a>
+          <a class="menu-option" href="quemsomos.html">Quem somos</a>
+          <a class="menu-option" href="reservas.html">Reservas</a>
+          <a class="menu-option" href="reviews.html">Reviews</a>
+        </div>
+    </header>
+  <main>
+    <div class="login">
+      <form>
+        <input id="email" name="email" type="text" class="formLogin" placeholder="email" required><br>
+        <input id="password" name="password" type="password" class="formLogin" placeholder="password" required><br>
+        <input type="checkbox" onclick="myFunction()">Show Password<br>
+        <!-- <input id="submit" name="submit" type="submit" class="formLogin" value="Login"> -->
+        <button id="submit" class="formLogin" onclick="javascript:alert('Hello World!')">Login</button>
+        <p>Ainda não tens conta? <a href="singin.html">Inscreve-te aqui</a></p>
+        
+      </form>
+    </div> 
+  </main>
+</body>
+
+</html>
