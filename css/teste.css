@@ -1,0 +1,81 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #005ca8;
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-weight: bold;
+    transform: rotate(-10deg);
+}
+
+.menu-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-icon .icon-bar {
+    width: 30px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+}
+
+.login {
+    font-weight: bold;
+}
+
+.main-content {
+    position: relative;
+    text-align: center;
+}
+
+.slideshow {
+    position: relative;
+}
+
+.car-image {
+    width: 100%;
+    height: auto;
+}
+
+.slideshow-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    white-space: nowrap;
+}
+
+.dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.active {
+    background-color: #005ca8;
+}
