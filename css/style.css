@@ -28,7 +28,7 @@ header {
     justify-content: space-evenly;
     position: absolute;
     top: 50%;  /* Ensure it starts from the top of the parent */
-    width: 100%; /* Align with the left edge */
+    right: 50%; /* Align with the left edge */
     background-color: #f9f9f9;
     white-space: nowrap; /* Prevents wrapping of menu items */
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
