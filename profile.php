@@ -31,8 +31,8 @@ $pessoa = $_SESSION['pessoa'];
         Menu
         <div class="menu-options">
             <a class="menu-option" href="frota.php">Frota</a>
-            <a class="menu-option" href="quemsomos.html">Quem somos</a>
-            <a class="menu-option" href="reservas.html">Reservas</a>
+            <a class="menu-option" href="quemsomos.php">Quem somos</a>
+            <a class="menu-option" href="reservas.php">Reservas</a>
             <a class="menu-option" href="reviews.php">Reviews</a>
         </div>
     </div>

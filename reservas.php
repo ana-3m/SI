@@ -46,33 +46,6 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
           <?php endif; ?>
       </div>
   </header>
-  <h1>Feedback Form</h1>
-  <form id="feedback-form">
-      <label for="uname">Name</label>
-      <input type="text" id="uname" name="uname" required>
-
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="phone">Phone</label>
-      <input type="tel" id="phone" name="phone" required>
-
-      <label>Satisfaction</label>
-      <input type="radio" id="yes" name="satisfaction" value="Yes" checked>
-      <label for="yes">Yes</label>
-      <input type="radio" id="no" name="satisfaction" value="No">
-      <label for="no">No</label>
-
-      <label for="suggestions">Suggestions</label>
-      <textarea id="suggestions" name="suggestions" required></textarea>
-
-      <button type="button" id="submit-btn">Submit</button>
-  </form>
-
-  <h2>Reviews</h2>
-  <div id="reviews"></div>
-
-  <script src="js/script.js"></script>
 </body>
 
 </html>
