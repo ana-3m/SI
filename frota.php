@@ -1,5 +1,13 @@
+<?php
+session_start();
+
+// Check if a user is logged in
+$userLoggedIn = isset($_SESSION['pessoa']);
+$loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
+?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -27,9 +35,15 @@
         </div>
     </div>
     <div class="login">
-        <a href="login.php" title="login">
-            <p>login</p>
-        </a>
+        <?php if ($userLoggedIn): ?>
+            <a href="profile.php" title="Profile">
+                <p><?php echo htmlspecialchars($loginPlaceholder); ?></p>
+            </a>
+        <?php else: ?>
+            <a href="login.php" title="Login">
+                <p><?php echo htmlspecialchars($loginPlaceholder); ?></p>
+            </a>
+        <?php endif; ?>
     </div>
 </header>
 <main>
