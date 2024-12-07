@@ -12,7 +12,7 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>rent-a-car</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/slideshow.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <header>
@@ -42,5 +42,24 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
         <?php endif; ?>
     </div>
 </header>
+<main>
+    <div class="slider">
+        <div class="slides">
+            <!-- Cada "slide" -->
+            <div class="slide">
+                <img src="data/imagens/carro_fiat.png" alt="Carro 1">
+            </div>
+            <div class="slide">
+                <img src="data/imagens/carro_peugeot.png" alt="Carro 2">
+            </div>
+            <div class="slide">
+                <img src="data/imagens/carro_renaut.png" alt="Carro 3">
+            </div>
+            <div class="slide">
+                <img src="data/imagens/carro_seat.png" alt="Carro 4">
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

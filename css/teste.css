@@ -1,81 +1,50 @@
-/* styles.css */
+/* Estilos base */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-}
-
-.header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    background-color: #005ca8;
-    color: white;
-    padding: 10px 20px;
+    height: 100vh;
+    background-color: #f4f4f4;
 }
 
-.logo {
-    font-weight: bold;
-    transform: rotate(-10deg);
-}
-
-.menu-icon {
-    position: relative;
-    cursor: pointer;
-}
-
-.menu-icon .icon-bar {
-    width: 30px;
-    height: 5px;
-    background-color: white;
-    margin: 6px 0;
-}
-
-.login {
-    font-weight: bold;
-}
-
-.main-content {
-    position: relative;
-    text-align: center;
-}
-
-.slideshow {
+.slider {
+    width: 80%;
+    max-width: 800px;
+    height: 80%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     position: relative;
 }
 
-.car-image {
-    width: 100%;
+.slides {
+    display: flex;
+    width: 200%;
     height: auto;
+
 }
 
-.slideshow-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 5px black;
-    white-space: nowrap;
+.slide {
+    width: 100%;
+    flex-shrink: 0;
+    animation: slide-animation 30s infinite;
 }
 
-.dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+.slide img {
+    width: 50%;
+    display: block;
+    border: none;
 }
 
-.dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.dot.active {
-    background-color: #005ca8;
+/* Animação automática */
+@keyframes slide-animation {
+    0% { transform: translateX(0%); }
+    17% { transform: translateX(-100%); }
+    34% { transform: translateX(-200%); }
+    50% { transform: translateX(-300%); }
+    67% { transform: translateX(-200%); }
+    84% { transform: translateX(-100%); }
+    100% { transform: translateX(-0%); }
 }

@@ -1,0 +1,103 @@
+/*html {*/
+/*  height: 100%;*/
+/*  width: 100%;*/
+/*}*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #005ca8;
+    color: white;
+    padding: 10px 20px;
+}
+
+
+.menu {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; /* Indicates it's interactive */
+    width: 500px;
+    text-align: center;
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%; /* Ensure it starts from the top of the parent */
+    width: 100%; /* Align with the left edge */
+    background-color: #f9f9f9;
+    white-space: nowrap; /* Prevents wrapping of menu items */
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    transition: transform 0.3s ease-in-out; /* Smooth drawer effect */
+    transform: translateY(-130%); /* Start off-screen */
+    /*width: 100vw; !* Full viewport width *!*/
+}
+
+.menu:hover .menu-options {
+    transform: translateY(10%); /* Slide into view */
+}
+
+.menu-option {
+    padding: 12px 0;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: 100%;
+}
+
+.menu-option:hover {
+    background-color: #ddd; /* Highlight on hover */
+}
+main {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.slider {
+    width: 80%;
+    max-width: 800px;
+    height: 80%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    width: 200%;
+    height: auto;
+}
+
+.slide {
+    width: 100%;
+    flex-shrink: 0;
+    animation: slide-animation 30s infinite;
+}
+
+.slide img {
+    width: 50%;
+    display: block;
+    border: none;
+}
+
+/* Animação automática */
+@keyframes slide-animation {
+    0% { transform: translateX(0%); }
+    17% { transform: translateX(-100%); }
+    34% { transform: translateX(-200%); }
+    50% { transform: translateX(-300%); }
+    67% { transform: translateX(-200%); }
+    84% { transform: translateX(-100%); }
+    100% { transform: translateX(-0%); }
+}
