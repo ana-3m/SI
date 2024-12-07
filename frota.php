@@ -13,7 +13,7 @@
 
 <header>
     <div class="logo">
-        <a href="index.html" title="logotipo">
+        <a href="index.php" title="logotipo">
             <p>logo</p>
         </a>
     </div>
