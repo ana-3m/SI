@@ -12,7 +12,9 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>rent-a-car</title>
-    <link href="css/slideshow.css" rel="stylesheet" type="text/css" />
+    <link href="css/header.css" rel="stylesheet" type="text/css"/>
+    <link href="css/slideshow.css" rel="stylesheet" type="text/css"/>
+    <link href="css/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header>
@@ -61,5 +63,26 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
         </div>
     </div>
 </main>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h2>Contactos:</h2>
+            <p>
+                239 999 999<br/>
+                rent.a.car.uc@gmail.com
+            </p>
+        </div>
+        <div class="footer-column">
+            <h2>Redes Sociais</h2> <br>
+            <img src="data/imagens/facebook.png" alt="facebook" class="icones" id="facebook"/>
+            <img src="data/imagens/instagram.png" alt="instagram" class="icones" id="instagram"/>
+        </div>
+        <div class="footer-logo">
+            <div class="logo-box">
+                <p>NOSSO<br>LOGOTIPO</p>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
