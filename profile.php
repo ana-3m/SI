@@ -33,8 +33,11 @@ $pessoa = $_SESSION['pessoa'];
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.html">Quem somos</a>
             <a class="menu-option" href="reservas.html">Reservas</a>
-            <a class="menu-option" href="reviews.html">Reviews</a>
+            <a class="menu-option" href="reviews.php">Reviews</a>
         </div>
+    </div>
+    <div style="visibility: hidden">
+
     </div>
 </header>
 

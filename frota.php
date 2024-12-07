@@ -23,11 +23,11 @@
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.html">Quem somos</a>
             <a class="menu-option" href="reservas.html">Reservas</a>
-            <a class="menu-option" href="reviews.html">Reviews</a>
+            <a class="menu-option" href="reviews.php">Reviews</a>
         </div>
     </div>
     <div class="login">
-        <a href="login.html" title="login">
+        <a href="login.php" title="login">
             <p>login</p>
         </a>
     </div>
