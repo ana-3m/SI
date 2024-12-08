@@ -9,35 +9,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password for security
 
-    // Insert user into the database
-    $result = pg_query_params(
+    // Verificar se o email já existe
+    $check_email = pg_query_params(
         $dbconn,
-        "INSERT INTO pessoa (email, nome, password) VALUES ($1, $2, $3)",
-        array($email, $nome, $password)
+        "SELECT * FROM pessoa WHERE email = $1",
+        array($email)
     );
 
-    if ($result) {
-        // Após a inserção bem-sucedida do usuário, insira na tabela cliente com saldo inicial
-        $saldo_inicial = 100; // Saldo inicial de 100€
-        $result_cliente = pg_query_params(
+    if (pg_num_rows($check_email) > 0) {
+        // Se o email já existir, mostre uma mensagem de erro
+        echo "<script>alert('This email is already registered. Please use a different one.');</script>";
+    } else {
+        // Inserir usuário na tabela pessoa
+        $result = pg_query_params(
             $dbconn,
-            "INSERT INTO cliente (pessoa_email, saldo) VALUES ($1, $2)",
-            array($email, $saldo_inicial)
+            "INSERT INTO pessoa (email, nome, password) VALUES ($1, $2, $3)",
+            array($email, $nome, $password)
         );
 
-        if ($result_cliente) {
-            echo "<script>alert('Registration successful! You have been credited with 100€!'); window.location.href = 'profile.php';</script>";
+        if ($result) {
+            // Após a inserção bem-sucedida do usuário, insira na tabela cliente com saldo inicial
+            $saldo_inicial = 100; // Saldo inicial de 100€
+            $result_cliente = pg_query_params(
+                $dbconn,
+                "INSERT INTO cliente (pessoa_email, saldo) VALUES ($1, $2)",
+                array($email, $saldo_inicial)
+            );
+
+            if ($result_cliente) {
+                echo "<script>alert('Registration successful! You have been credited with 100€!'); window.location.href = 'profile.php';</script>";
+            } else {
+                // Adicionando tratamento de erro
+                $error = pg_last_error($dbconn);
+                echo "<script>alert('Registration successful, but failed to credit your account. Please contact us directly to try to solve this issue. Error: $error');</script>";
+            }
         } else {
-            // Adicionando tratamento de erro
-            $error = pg_last_error($dbconn);
-            echo "<script>alert('Registration successful, but failed to credit your account. Please contact us directly to try to solve this issue. Error: $error');</script>";
+            echo "<script>alert('Registration failed. Email may already be in use.');</script>";
         }
-    } else {
-        echo "<script>alert('Registration failed. Email may already be in use.');</script>";
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
