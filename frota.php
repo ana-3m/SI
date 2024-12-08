@@ -15,7 +15,7 @@ $result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_e
 $isFuncionario = pg_num_rows($result) > 0;
 
 if ($isFuncionario) {
-    header('Location: ../frotaAdmin.php?status=success');
+    header('Location: frotaAdmin.php');
 }
 ?>
 
@@ -31,8 +31,6 @@ if ($isFuncionario) {
 </head>
 
 <body>
-<script src="js/script.js"></script>
-
 <header>
     <div class="logo">
         <a href="index.php" title="logotipo">
