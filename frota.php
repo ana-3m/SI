@@ -5,17 +5,20 @@ session_start();
 $userLoggedIn = isset($_SESSION['pessoa']);
 $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
 
-// Check if the logged-in user is a funcionario or a cliente
-$dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+if ($userLoggedIn) {
 
-$userLoggedIn = $_SESSION['pessoa']['email'];
+// Check if the logged-in user is a funcionario or a cliente
+    $dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+
+    $userLoggedIn = $_SESSION['pessoa']['email'];
 
 // Query to check if the user is a funcionario
-$result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_email = $1", array($userLoggedIn));
-$isFuncionario = pg_num_rows($result) > 0;
+    $result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_email = $1", array($userLoggedIn));
+    $isFuncionario = pg_num_rows($result) > 0;
 
-if ($isFuncionario) {
-    header('Location: frotaAdmin.php');
+    if ($isFuncionario) {
+        header('Location: frotaAdmin.php');
+    }
 }
 ?>
 
