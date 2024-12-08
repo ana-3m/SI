@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result) {
             pg_close($connection);
-            header('Location: ../frota.php?status=success');
+            header('Location: ../frotaAdmin.php?status=success');
             exit; // Ensure the script halts after the redirect
         } else {
             $errors[] = "An error occurred while adding the car: " . pg_last_error($connection);
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!empty($errors)) {
     $error_message = urlencode(implode(', ', $errors));
     pg_close($connection);
-    header("Location: ../frota.php?status=error&message=$error_message");
+    header("Location: ../frotaAdmin.php?status=error&message=$error_message");
     exit; // Ensure the script halts after the redirect
 }
 ?>
