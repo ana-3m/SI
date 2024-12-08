@@ -70,25 +70,6 @@ if ($isFuncionario) {
         <?php endif; ?>
     <?php endif; ?>
 
-    <!-- Form to add a new car -->
-    <form method="POST" action="php/add_car.php">
-        <label for="matricula">Matricula:</label><br>
-        <input type="text" id="matricula" name="matricula" required><br>
-        <label for="marca">Marca:</label><br>
-        <input type="text" id="marca" name="marca" required><br>
-        <label for="modelo">Modelo:</label><br>
-        <input type="text" id="modelo" name="modelo" required><br>
-        <label for="ano">Ano:</label><br>
-        <input type="date" id="ano" name="ano" required><br>
-        <label for="cor">Cor:</label><br>
-        <input type="text" id="cor" name="cor" required><br>
-        <label for="kms">Kms:</label><br>
-        <input type="number" id="kms" name="kms" required><br>
-        <label for="n_de_reservas">N_de_reservas:</label><br>
-        <input type="number" id="n_de_reservas" name="n_de_reservas" required><br>
-        <button type="submit">Add Car</button>
-    </form>
-
     <!-- Display the car list -->
     <h2>Available Cars:</h2>
 
