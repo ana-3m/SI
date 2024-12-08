@@ -10,6 +10,30 @@ if (!isset($_SESSION['pessoa'])) {
 
 // Retrieve user data from the session
 $pessoa = $_SESSION['pessoa'];
+
+//---------
+// Connect to the database to retrieve the user's balance
+$dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+
+// Fetch the user's balance from the 'cliente' table
+$result = pg_query_params(
+    $dbconn,
+    "SELECT saldo FROM cliente WHERE pessoa_email = $1",
+    array($pessoa['email'])
+);
+
+if (!$result) {
+    echo "Error querying balance: " . pg_last_error($dbconn);
+    exit;
+}
+
+$row = pg_fetch_assoc($result);
+
+if (!$row) {
+    $saldo = 0; // Default balance if no record found
+} else {
+    $saldo = $row['saldo'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +42,8 @@ $pessoa = $_SESSION['pessoa'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Personal Page</title>
-    <link href="css/header.css" rel="stylesheet" type="text/css" />
-    <link href="css/footer.css" rel="stylesheet" type="text/css" />
+    <link href="css/header.css" rel="stylesheet" type="text/css"/>
+    <link href="css/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header>
@@ -46,9 +70,11 @@ $pessoa = $_SESSION['pessoa'];
     <div class="profile-info">
         <h1>Welcome, <?php echo htmlspecialchars($pessoa['nome']); ?>!</h1>
         <p>Email: <?php echo htmlspecialchars($pessoa['email']); ?></p>
+        <p>Saldo: <?php echo htmlspecialchars(number_format($saldo, 2, ',', ' ')); ?> €</p>
         <p><a href="php/logout.php">Logout</a></p>
     </div>
 </main>
+
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-column">

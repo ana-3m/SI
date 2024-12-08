@@ -17,12 +17,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     if ($result) {
-        echo "<script>alert('Registration successful!'); window.location.href = 'profile.php';</script>";
+        // Após a inserção bem-sucedida do usuário, insira na tabela cliente com saldo inicial
+        $saldo_inicial = 100; // Saldo inicial de 100€
+        $result_cliente = pg_query_params(
+            $dbconn,
+            "INSERT INTO cliente (pessoa_email, saldo) VALUES ($1, $2)",
+            array($email, $saldo_inicial)
+        );
+
+        if ($result_cliente) {
+            echo "<script>alert('Registration successful! You have been credited with 100€!'); window.location.href = 'profile.php';</script>";
+        } else {
+            // Adicionando tratamento de erro
+            $error = pg_last_error($dbconn);
+            echo "<script>alert('Registration successful, but failed to credit your account. Please contact us directly to try to solve this issue. Error: $error');</script>";
+        }
     } else {
         echo "<script>alert('Registration failed. Email may already be in use.');</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <h1>Signup</h1>
-<form method="POST" action="singin.php">
+<form method="POST" action="signin.php">
     <label for="nome">Name:</label><br>
     <input type="text" id="nome" name="nome" required><br><br>
 
