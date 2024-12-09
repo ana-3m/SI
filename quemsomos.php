@@ -15,6 +15,7 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -47,6 +48,7 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
         <?php endif; ?>
     </div>
 </header>
+<main></main>
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-column">

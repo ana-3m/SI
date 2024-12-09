@@ -63,6 +63,7 @@ $cars = pg_fetch_all($result);
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -93,85 +94,87 @@ $cars = pg_fetch_all($result);
         <?php endif; ?>
     </div>
 </header>
-<h1>Admin Panel</h1>
+<main>
+    <h1>Admin Panel</h1>
 
-<!-- Display success or error messages -->
-<?php if (!empty($_GET['status'])): ?>
-    <?php if ($_GET['status'] === 'success'): ?>
-        <p style="color: green;">Car added successfully!</p>
-    <?php elseif ($_GET['status'] === 'error'): ?>
-        <p style="color: red;">Error: <?= htmlspecialchars($_GET['message'] ?? 'Unknown error') ?></p>
+    <!-- Display success or error messages -->
+    <?php if (!empty($_GET['status'])): ?>
+        <?php if ($_GET['status'] === 'success'): ?>
+            <p style="color: green;">Car added successfully!</p>
+        <?php elseif ($_GET['status'] === 'error'): ?>
+            <p style="color: red;">Error: <?= htmlspecialchars($_GET['message'] ?? 'Unknown error') ?></p>
+        <?php endif; ?>
     <?php endif; ?>
-<?php endif; ?>
 
-<!-- Form to add a new car -->
-<form method="POST" action="php/add_car.php">
-    <label for="matricula">Matricula:</label><br>
-    <input type="text" id="matricula" name="matricula" required><br>
-    <label for="marca">Marca:</label><br>
-    <input type="text" id="marca" name="marca" required><br>
-    <label for="modelo">Modelo:</label><br>
-    <input type="text" id="modelo" name="modelo" required><br>
-    <label for="ano">Ano:</label><br>
-    <input type="date" id="ano" name="ano" required><br>
-    <label for="cor">Cor:</label><br>
-    <input type="text" id="cor" name="cor" required><br>
-    <label for="kms">Kms:</label><br>
-    <input type="number" id="kms" name="kms" required><br>
-    <label for="n_de_reservas">N_de_reservas:</label><br>
-    <input type="number" id="n_de_reservas" name="n_de_reservas" required><br>
-    <label for="preco">Preço:</label><br>
-    <input type="number" id="preco" name="preco" step="0.01" required><br>
-    <button type="submit">Add Car</button>
-</form>
-
-<table border="1">
-    <thead>
-    <tr>
-        <th>Matrícula</th>
-        <th>Model</th>
-        <th>Preço</th>
-        <th>Visible</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php if ($cars): ?>
-        <?php foreach ($cars as $car): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($car['matricula']); ?></td>
-                <td><?php echo htmlspecialchars($car['modelo']); ?></td>
-                <td><?php echo htmlspecialchars($car['preco']); ?></td>
-                <td><?php echo $car['visivel'] === 't' ? 'Yes' : 'No'; ?></td>
-                <td>
-                    <!-- Toggle visibility form -->
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
-                        <input type="hidden" name="current_visibility" value="<?php echo $car['visivel']; ?>">
-                        <button type="submit" name="toggle_visibility">
-                            <?php echo $car['visivel'] === 't' ? 'Hide' : 'Show'; ?>
-                        </button>
-                    </form>
-                    <!-- Delete car form -->
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
-                        <button type="submit" name="delete_car">Delete</button>
-                    </form>
-                    <!-- Edit price form -->
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
-                        <input type="number" name="new_preco" placeholder="Novo Preço" step="0.01" required>
-                        <button type="submit" name="edit_preco">Update Price</button>
-                    </form>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
+    <!-- Form to add a new car -->
+    <form method="POST" action="php/add_car.php">
+        <label for="matricula">Matricula:</label><br>
+        <input type="text" id="matricula" name="matricula" required><br>
+        <label for="marca">Marca:</label><br>
+        <input type="text" id="marca" name="marca" required><br>
+        <label for="modelo">Modelo:</label><br>
+        <input type="text" id="modelo" name="modelo" required><br>
+        <label for="ano">Ano:</label><br>
+        <input type="date" id="ano" name="ano" required><br>
+        <label for="cor">Cor:</label><br>
+        <input type="text" id="cor" name="cor" required><br>
+        <label for="kms">Kms:</label><br>
+        <input type="number" id="kms" name="kms" required><br>
+        <label for="n_de_reservas">N_de_reservas:</label><br>
+        <input type="number" id="n_de_reservas" name="n_de_reservas" required><br>
+        <label for="preco">Preço:</label><br>
+        <input type="number" id="preco" name="preco" step="0.01" required><br>
+        <button type="submit">Add Car</button>
+    </form>
+    <br>
+    <table border="1">
+        <thead>
         <tr>
-            <td colspan="4">No cars found.</td>
+            <th>Matrícula</th>
+            <th>Model</th>
+            <th>Preço</th>
+            <th>Visible</th>
+            <th>Actions</th>
         </tr>
-    <?php endif; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <?php if ($cars): ?>
+            <?php foreach ($cars as $car): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($car['matricula']); ?></td>
+                    <td><?php echo htmlspecialchars($car['modelo']); ?></td>
+                    <td><?php echo htmlspecialchars($car['preco']); ?></td>
+                    <td><?php echo $car['visivel'] === 't' ? 'Yes' : 'No'; ?></td>
+                    <td>
+                        <!-- Toggle visibility form -->
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
+                            <input type="hidden" name="current_visibility" value="<?php echo $car['visivel']; ?>">
+                            <button type="submit" name="toggle_visibility">
+                                <?php echo $car['visivel'] === 't' ? 'Hide' : 'Show'; ?>
+                            </button>
+                        </form>
+                        <!-- Delete car form -->
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
+                            <button type="submit" name="delete_car">Delete</button>
+                        </form>
+                        <!-- Edit price form -->
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
+                            <input type="number" name="new_preco" placeholder="Novo Preço" step="0.01" required>
+                            <button type="submit" name="edit_preco">Update Price</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4">No cars found.</td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</main>
 </body>
 </html>

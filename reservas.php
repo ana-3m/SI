@@ -25,6 +25,7 @@ $email = $_SESSION['pessoa']['email'];
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -106,26 +107,26 @@ $email = $_SESSION['pessoa']['email'];
             <button type="submit">Reservar</button>
         </form>
     </div>
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h2>Contactos:</h2>
-                <p>
-                    239 999 999<br/>
-                    rent.a.car.uc@gmail.com
-                </p>
-            </div>
-            <div class="footer-column">
-                <h2>Redes Sociais</h2> <br>
-                <img src="data/imagens/facebook.png" alt="facebook" class="icones" id="facebook"/>
-                <img src="data/imagens/instagram.png" alt="instagram" class="icones" id="instagram"/>
-            </div>
-            <div class="footer-logo">
-                <div class="logo-box">
-                    <img src="data/imagens/logo.png" alt="logo" height="200px" width="200px">
-                </div>
+</main>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h2>Contactos:</h2>
+            <p>
+                239 999 999<br/>
+                rent.a.car.uc@gmail.com
+            </p>
+        </div>
+        <div class="footer-column">
+            <h2>Redes Sociais</h2> <br>
+            <img src="data/imagens/facebook.png" alt="facebook" class="icones" id="facebook"/>
+            <img src="data/imagens/instagram.png" alt="instagram" class="icones" id="instagram"/>
+        </div>
+        <div class="footer-logo">
+            <div class="logo-box">
+                <img src="data/imagens/logo.png" alt="logo" height="200px" width="200px">
             </div>
         </div>
-    </footer>
-</main>
+    </div>
+</footer>
 </html>

@@ -61,6 +61,7 @@ while ($reserva = pg_fetch_assoc($reserva_query)) {
     <title>Personal Page</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header>
@@ -79,7 +80,7 @@ while ($reserva = pg_fetch_assoc($reserva_query)) {
         </div>
     </div>
     <div style="visibility: hidden">
-
+        <?php echo htmlspecialchars($pessoa['nome']); ?>
     </div>
 </header>
 

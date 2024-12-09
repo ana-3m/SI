@@ -7,8 +7,8 @@ fictício gerado no momento do registo.~~
 - ~~Fazer um pedido de reserva de um carro, durante um certo período de tempo.~~  
 - ~~Listar os seus pedidos de reserva (passados e os futuros também).~~
 - ~~Pesquisar carros disponíveis para reservar usando diversos critérios, como por ex. marca,
-número  de  lugares,  custo  máximo  por  dia.~~  **Deve  ser  possível  especificar  critérios  de
-ordenação dos resultados.** 
+número  de  lugares,  custo  máximo  por  dia. Deve  ser  possível  especificar  critérios  de
+ordenação dos resultados.~~
 
 ---
 # Administrador:

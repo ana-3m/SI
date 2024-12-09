@@ -64,7 +64,7 @@ if (isset($_SESSION['redirect_message'])) {
         </div>
     </div>
     <div style="visibility: hidden">
-
+        <?php echo htmlspecialchars($pessoa['nome']); ?>
     </div>
 </header>
 <main>
