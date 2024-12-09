@@ -56,21 +56,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link href="css/signup.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <h1>Signup</h1>
-<form method="POST" action="signin.php">
-    <label for="nome">Name:</label><br>
-    <input type="text" id="nome" name="nome" required><br><br>
+<form method="POST" action="teste.php">
+    <label for="nome">Name:</label>
+    <input type="text" id="nome" name="nome" placeholder="nome" required>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="email" required>
 
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="password" required>
 
     <button type="submit">Signup</button>
 </form>
-<p>Already have an account? <a href="login.php">Login here</a>.</p>
+<p id="small">Already have an account? <a href="login.php">Login here</a>.</p>
 </body>
 </html>
