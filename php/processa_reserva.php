@@ -18,6 +18,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Erro ao conectar ao banco de dados: " . pg_last_error());
     }
 
+    // Verificar se o carro está disponível no período solicitado
+    $disponibilidade_query = "
+        SELECT 1 FROM reserva
+        WHERE carro_matricula = $1
+          AND (
+            (data_ini <= $2 AND data_fim >= $2) OR
+            (data_ini <= $3 AND data_fim >= $3) OR
+            (data_ini >= $2 AND data_fim <= $3)
+          )
+    ";
+    $disponibilidade_result = pg_query_params($conn, $disponibilidade_query, [$carro_matricula, $data_ini, $data_fim]);
+
+    if (pg_num_rows($disponibilidade_result) > 0) {
+        // Carro não está disponível
+        echo "<h1>Carro não disponível!</h1>";
+        echo "<p>O carro com matrícula $carro_matricula já está reservado neste período.</p>";
+        echo "<a href='../reservas.php'>Voltar</a>";
+        pg_close($conn);
+        exit();
+    }
+
+    // Calcular a quantidade de dias da reserva
+    $date_ini_obj = new DateTime($data_ini);
+    $date_fim_obj = new DateTime($data_fim);
+    $interval = $date_ini_obj->diff($date_fim_obj);
+    $days = $interval->days;
+
+    // Verificar saldo do cliente
+    $saldo_query = "SELECT saldo FROM cliente WHERE pessoa_email = $1";
+    $saldo_result = pg_query_params($conn, $saldo_query, [$email]);
+
+    if ($saldo_result) {
+        $saldo_row = pg_fetch_assoc($saldo_result);
+        $saldo = $saldo_row['saldo'];
+
+        $saldo_necessario = $days * 5;
+        if ($saldo < $saldo_necessario) {
+            // Saldo insuficiente
+            echo "<h1>Saldo insuficiente!</h1>";
+            echo "<p>Você precisa de $saldo_necessario unidades de saldo, mas tem apenas $saldo.</p>";
+            echo "<a href='../reservas.php'>Voltar</a>";
+            pg_close($conn);
+            exit();
+        }
+    } else {
+        echo "Erro ao verificar saldo do cliente: " . pg_last_error($conn);
+        pg_close($conn);
+        exit();
+    }
+
     // Gerar um ID de reserva único
     $id = rand(100000, 999999); // Gera um número aleatório de 6 dígitos
 
@@ -33,13 +83,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar se a inserção foi bem-sucedida
     if ($result) {
-        // Atualizar a visibilidade do carro alugado para FALSE
-        $update_query = "UPDATE carro SET visivel = FALSE WHERE matricula = $1";
-        pg_query_params($conn, $update_query, [$carro_matricula]);
+        // Subtrair o saldo necessário
+        $update_saldo_query = "
+            UPDATE cliente 
+            SET saldo = saldo - $1 
+            WHERE pessoa_email = $2
+        ";
+        pg_query_params($conn, $update_saldo_query, [$saldo_necessario, $email]);
 
         // Redirecionar ou exibir mensagem de sucesso
         echo "<h1>Reserva criada com sucesso!</h1>";
         echo "<p>ID da reserva: $id</p>";
+        echo "<p>Foi debitado $saldo_necessario unidades do saldo do cliente.</p>";
         echo "<a href='../reservas.php'>Voltar</a>";
     } else {
         echo "Erro ao criar reserva: " . pg_last_error($conn);
@@ -52,4 +107,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: ../reservas.php");
     exit();
 }
-

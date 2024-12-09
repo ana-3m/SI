@@ -20,6 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>alert('Invalid email or password.');</script>";
     }
 }
+
+// Verificar se há mensagem de redirecionamento
+if (isset($_SESSION['redirect_message'])) {
+    $redirect_message = $_SESSION['redirect_message'];
+    unset($_SESSION['redirect_message']); // Limpar a mensagem após exibição
+} else {
+    $redirect_message = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <script>
+        // Exibir mensagem de redirecionamento, se existir
+        <?php if ($redirect_message): ?>
+        alert("<?php echo htmlspecialchars($redirect_message); ?>");
+        <?php endif; ?>
+    </script>
 </head>
 <body>
 <h1>Login</h1>

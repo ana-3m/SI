@@ -7,12 +7,12 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
 
 if ($userLoggedIn) {
 
-// Check if the logged-in user is a funcionario or a cliente
+    // Check if the logged-in user is a funcionario or a cliente
     $dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
 
     $userLoggedIn = $_SESSION['pessoa']['email'];
 
-// Query to check if the user is a funcionario
+    // Query to check if the user is a funcionario
     $result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_email = $1", array($userLoggedIn));
     $isFuncionario = pg_num_rows($result) > 0;
 
@@ -84,8 +84,17 @@ if ($userLoggedIn) {
         exit;
     }
 
-    // Query the cars table
-    $result = pg_query($connection, "SELECT * FROM carro");
+    // Query the cars table to fetch only cars that are not reserved for today
+    $currentDate = date('Y-m-d');
+    $query = "
+        SELECT * FROM carro 
+        WHERE matricula NOT IN (
+            SELECT carro_matricula FROM reserva
+            WHERE data_ini <= $1 AND data_fim >= $1
+        )
+    ";
+    $result = pg_query_params($connection, $query, [$currentDate]);
+
     if (!$result) {
         echo "An error occurred while fetching data.<br>";
         exit;
