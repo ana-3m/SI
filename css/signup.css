@@ -24,7 +24,7 @@ label {
 form {
     display: flex;
     width: 500px;
-    height: 200px;
+    height: 280px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -34,24 +34,22 @@ form {
     justify-content: center;
 }
 
+input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: 75%;
     padding: 10px 10px 10px 10px;
-    margin: 10px 0;
+    margin: 15px 0;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 15px;
 }
 
+input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
     outline: none;
     border-color: #007bff;
-}
-
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
 }
 
 button {
