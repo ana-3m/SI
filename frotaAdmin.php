@@ -33,6 +33,23 @@ if (isset($_POST['delete_car'])) {
     echo "<script>alert('Car deleted successfully.'); window.location.href = 'frotaAdmin.php';</script>";
 }
 
+// Handle edit car price
+if (isset($_POST['edit_preco'])) {
+    $matricula = $_POST['matricula'];
+    $new_preco = $_POST['new_preco'];
+
+    if (is_numeric($new_preco) && $new_preco >= 0) {
+        pg_query_params(
+            $dbconn,
+            "UPDATE carro SET preco = $1 WHERE matricula = $2",
+            array($new_preco, $matricula)
+        );
+        echo "<script>alert('Car price updated successfully.'); window.location.href = 'frotaAdmin.php';</script>";
+    } else {
+        echo "<script>alert('Invalid price. Please enter a valid number.'); window.location.href = 'frotaAdmin.php';</script>";
+    }
+}
+
 // Fetch all cars from the database
 $result = pg_query($dbconn, "SELECT * FROM carro ORDER BY matricula");
 $cars = pg_fetch_all($result);
@@ -71,7 +88,7 @@ $cars = pg_fetch_all($result);
             </a>
         <?php else: ?>
             <a href="login.php" title="Login">
-               <p><?php echo htmlspecialchars($loginPlaceholder); ?></p>
+                <p><?php echo htmlspecialchars($loginPlaceholder); ?></p>
             </a>
         <?php endif; ?>
     </div>
@@ -103,6 +120,8 @@ $cars = pg_fetch_all($result);
     <input type="number" id="kms" name="kms" required><br>
     <label for="n_de_reservas">N_de_reservas:</label><br>
     <input type="number" id="n_de_reservas" name="n_de_reservas" required><br>
+    <label for="preco">Preço:</label><br>
+    <input type="number" id="preco" name="preco" step="0.01" required><br>
     <button type="submit">Add Car</button>
 </form>
 
@@ -111,6 +130,7 @@ $cars = pg_fetch_all($result);
     <tr>
         <th>Matrícula</th>
         <th>Model</th>
+        <th>Preço</th>
         <th>Visible</th>
         <th>Actions</th>
     </tr>
@@ -121,6 +141,7 @@ $cars = pg_fetch_all($result);
             <tr>
                 <td><?php echo htmlspecialchars($car['matricula']); ?></td>
                 <td><?php echo htmlspecialchars($car['modelo']); ?></td>
+                <td><?php echo htmlspecialchars($car['preco']); ?></td>
                 <td><?php echo $car['visivel'] === 't' ? 'Yes' : 'No'; ?></td>
                 <td>
                     <!-- Toggle visibility form -->
@@ -135,6 +156,12 @@ $cars = pg_fetch_all($result);
                     <form method="POST" style="display:inline;">
                         <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
                         <button type="submit" name="delete_car">Delete</button>
+                    </form>
+                    <!-- Edit price form -->
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="matricula" value="<?php echo $car['matricula']; ?>">
+                        <input type="number" name="new_preco" placeholder="Novo Preço" step="0.01" required>
+                        <button type="submit" name="edit_preco">Update Price</button>
                     </form>
                 </td>
             </tr>

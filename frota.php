@@ -134,6 +134,7 @@ if ($userLoggedIn) {
             <th>Cor</th>
             <th>Kms</th>
             <th>N_de_reservas</th>
+            <th>Preço</th>
         </tr>
 
         <?php
@@ -148,6 +149,7 @@ if ($userLoggedIn) {
                       <td>" . htmlspecialchars($row['cor']) . "</td>
                       <td>" . htmlspecialchars($row['kms']) . "</td>
                       <td>" . htmlspecialchars($row['n_de_reservas']) . "</td>
+                      <td>" . htmlspecialchars($row['preco']) . "</td>
                   </tr>";
             }
         } else {
