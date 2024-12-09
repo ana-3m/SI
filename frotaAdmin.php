@@ -69,7 +69,7 @@ $cars = pg_fetch_all($result);
 <header>
     <div class="logo">
         <a href="index.php" title="logotipo">
-            <img src="img/logo.png" alt="logo" height="50px" width="50px">
+            <img src="data/imagens/logo.png" alt="logo" height="50px" width="50px">
         </a>
     </div>
     <div class="menu">

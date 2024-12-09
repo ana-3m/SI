@@ -38,7 +38,7 @@ if ($userLoggedIn) {
 <header>
     <div class="logo">
         <a href="index.php" title="logotipo">
-            <img src="img/logo.png" alt="logo" height="50px" width="50px">
+            <img src="data/imagens/logo.png" alt="logo" height="50px" width="50px">
         </a>
     </div>
     <div class="menu">
@@ -178,7 +178,7 @@ if ($userLoggedIn) {
         </div>
         <div class="footer-logo">
             <div class="logo-box">
-                <img src="img/logo.png" alt="logo" height="200px" width="200px">
+                <img src="data/imagens/logo.png" alt="logo" height="200px" width="200px">
             </div>
         </div>
     </div>
