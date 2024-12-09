@@ -95,31 +95,50 @@ if ($userLoggedIn) {
     $searchTerm = $_GET['searchTerm'] ?? '';
     $clear = $_GET['clear'] ?? '';
 
+    // Parâmetro de ordenação
+    $sort = $_GET['sort'] ?? ''; // Critério de ordenação
+    $allowedSortFields = ['matricula', 'marca', 'modelo', 'ano', 'cor', 'kms', 'n_de_reservas']; // Campos válidos
+
+    // Construção da consulta SQL
+    $query = "SELECT * FROM carro";
+    $params = [];
     if ($clear) {
-        // Consulta padrão (sem filtros)
-        $query = "SELECT * FROM carro";
-        $result = pg_query($connection, $query);
+        // Se o botão "Limpar" for acionado, nenhuma condição será aplicada
     } elseif ($searchTerm) {
-        // Consulta que verifica todas as colunas (marca, modelo, cor)
-        $query = "SELECT * FROM carro WHERE 
-              marca ILIKE $1 OR modelo ILIKE $1 OR cor ILIKE $1";
-        $result = pg_query_params($connection, $query, array('%' . $searchTerm . '%'));
+        // Adiciona filtro de pesquisa
+        $query .= " WHERE marca ILIKE $1 OR modelo ILIKE $1 OR cor ILIKE $1";
+        $params[] = '%' . $searchTerm . '%';
+    }
+
+    // Adiciona a cláusula ORDER BY se houver um parâmetro de ordenação válido
+    if (in_array($sort, $allowedSortFields)) {
+        $query .= " ORDER BY $sort";
+    }
+
+    // Executa a consulta com ou sem parâmetros
+    if (!empty($params)) {
+        $result = pg_query_params($connection, $query, $params);
     } else {
-        // Consulta padrão (sem filtros)
-        $query = "SELECT * FROM carro";
         $result = pg_query($connection, $query);
+    }
+
+    // Se a consulta falhar
+    if (!$result) {
+        echo "Erro ao buscar dados.";
+        exit;
     }
     ?>
 
+
     <table border="1px">
         <tr>
-            <th>Matricula</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Ano</th>
-            <th>Cor</th>
-            <th>Kms</th>
-            <th>N_de_reservas</th>
+            <th><a href="?sort=matricula&searchTerm=<?= urlencode($searchTerm) ?>">Matricula</a></th>
+            <th><a href="?sort=marca&searchTerm=<?= urlencode($searchTerm) ?>">Marca</a></th>
+            <th><a href="?sort=modelo&searchTerm=<?= urlencode($searchTerm) ?>">Modelo</a></th>
+            <th><a href="?sort=ano&searchTerm=<?= urlencode($searchTerm) ?>">Ano</a></th>
+            <th><a href="?sort=cor&searchTerm=<?= urlencode($searchTerm) ?>">Cor</a></th>
+            <th><a href="?sort=kms&searchTerm=<?= urlencode($searchTerm) ?>">Kms</a></th>
+            <th><a href="?sort=n_de_reservas&searchTerm=<?= urlencode($searchTerm) ?>">N. de Reservas</a></th>
         </tr>
 
         <?php
