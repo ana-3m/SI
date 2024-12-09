@@ -4,6 +4,8 @@ session_start();
 // Check if a user is logged in
 $userLoggedIn = isset($_SESSION['pessoa']);
 $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
+
+$conn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +20,6 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
 </head>
 
 <body>
-<script src="js/script.js"></script>
-
 <header>
     <div class="logo">
         <a href="index.php" title="logotipo">
@@ -47,6 +47,63 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
         <?php endif; ?>
     </div>
 </header>
+<main>
+<div class="container">
+    <h1>Reserva de Carros</h1>
+    <form action="php/processa_reserva.php" method="post">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="seuemail@example.com" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="+351 912345678" required>
+
+        <label for="carro">Selecione o Carro:</label>
+        <select id="carro" name="carro" required>
+            <!-- PHP para carregar os carros disponíveis -->
+            <?php
+            // Conexão com o banco de dados
+            $conn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+
+
+            if (!$conn) {
+                die("<option>Erro ao conectar ao banco de dados: " . pg_last_error() . "</option>");
+            }
+
+            // Buscar carros disponíveis
+            $query = "SELECT matricula, marca, modelo FROM carro WHERE visivel = TRUE";
+            $result = pg_query($conn, $query);
+
+            if (!$result) {
+                echo "<option>Erro ao buscar carros: " . pg_last_error() . "</option>";
+            } else {
+                $has_cars = false;
+                while ($carro = pg_fetch_assoc($result)) {
+                    $has_cars = true;
+                    echo "<option value='{$carro['matricula']}'>{$carro['marca']}{$carro['modelo']}</option>";
+                }
+
+                if (!$has_cars) {
+                    echo "<option>Nenhum carro disponível no momento</option>";
+                }
+            }
+
+            // Fechar conexão
+            pg_close($conn);
+            ?>
+        </select>
+
+        <label for="data_ini">Data de Início:</label>
+        <input type="date" id="data_ini" name="data_ini" required>
+
+        <label for="data_fim">Data de Fim:</label>
+        <input type="date" id="data_fim" name="data_fim" required>
+
+        <button type="submit">Reservar</button>
+    </form>
+</div>
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-column">
@@ -68,6 +125,6 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
         </div>
     </div>
 </footer>
-</body>
-
+</main>
 </html>
+
