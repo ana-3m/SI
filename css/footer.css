@@ -43,13 +43,13 @@ body, html {
     align-items: center;
 }
 
-.logo-box {
-    border: 2px solid #fff; /* Borda branca */
+/*.logo-box {
+    border: 2px solid #fff;  Borda branca
     padding: 40px;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-}
+}*/
 
 .icones {
     margin: 0 16px 0 16px;

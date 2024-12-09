@@ -23,7 +23,7 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
 <header>
     <div class="logo">
         <a href="index.php" title="logotipo">
-            <p>logo</p>
+            <img src="img/logo.png" alt="logo" height="50px" width="50px">
         </a>
     </div>
     <div class="menu">
@@ -63,7 +63,7 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
         </div>
         <div class="footer-logo">
             <div class="logo-box">
-                <p>NOSSO<br>LOGOTIPO</p>
+                <img src="img/logo.png" alt="logo" height="200px" width="200px">
             </div>
         </div>
     </div>
