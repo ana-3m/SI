@@ -28,18 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="css/login.css" rel="stylesheet" type="text/css"/>
 </head>
+
 <body>
 <h1>Login</h1>
 <form method="POST" action="login.php">
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="email" required>
 
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="password" required>
 
     <button type="submit">Login</button>
 </form>
-<p>Don't have an account? <a href="signin.php">Signup here</a>.</p>
+<p id="small">Don't have an account? <a href="signin.php">Signup here</a>.</p>
 </body>
 </html>
