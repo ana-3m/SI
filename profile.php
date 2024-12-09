@@ -29,10 +29,27 @@ if (!$result) {
 
 $row = pg_fetch_assoc($result);
 
-if (!$row) {
-    $saldo = 0; // Default balance if no record found
-} else {
-    $saldo = $row['saldo'];
+$saldo = $row ? $row['saldo'] : 0;
+
+// Fetch the user's reservations from the 'reserva' table
+$reserva_query = pg_query_params(
+    $dbconn,
+    "SELECT r.id, r.carro_matricula, c.marca, c.modelo, r.data_ini, r.data_fim 
+     FROM reserva r
+     JOIN carro c ON r.carro_matricula = c.matricula
+     WHERE r.cliente_pessoa_email = $1",
+    array($pessoa['email'])
+);
+
+if (!$reserva_query) {
+    echo "Error querying reservations: " . pg_last_error($dbconn);
+    exit;
+}
+
+// Store reservations in an array
+$reservas = [];
+while ($reserva = pg_fetch_assoc($reserva_query)) {
+    $reservas[] = $reserva;
 }
 ?>
 
@@ -71,6 +88,33 @@ if (!$row) {
         <h1>Welcome, <?php echo htmlspecialchars($pessoa['nome']); ?>!</h1>
         <p>Email: <?php echo htmlspecialchars($pessoa['email']); ?></p>
         <p>Saldo: <?php echo htmlspecialchars(number_format($saldo, 2, ',', ' ')); ?> €</p>
+        <div class="reservations">
+            <h2>Your Reservations</h2>
+            <?php if (count($reservas) > 0): ?>
+                <table border="1px">
+                    <thead>
+                    <tr>
+                        <th>ID da reserva</th>
+                        <th>Carro</th>
+                        <th>Data de início</th>
+                        <th>Data de fim</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($reservas as $reserva): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($reserva['id']); ?></td>
+                            <td><?php echo htmlspecialchars($reserva['marca'] . " " . $reserva['modelo']); ?></td>
+                            <td><?php echo htmlspecialchars(date("d/m/Y", strtotime($reserva['data_ini']))); ?></td>
+                            <td><?php echo htmlspecialchars(date("d/m/Y", strtotime($reserva['data_fim']))); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>No reservations found.</p>
+            <?php endif; ?>
+        </div>
         <p><a href="php/logout.php">Logout</a></p>
     </div>
 </main>
