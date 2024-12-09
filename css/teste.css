@@ -1,58 +1,21 @@
-/* Reset básico */
-body, html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+form {
+    margin-bottom: 20px;
 }
 
-/* Footer */
-.footer {
-    background-color: #000; /* Fundo preto */
-    color: #fff; /* Texto branco */
-    padding: 20px 40px;
+form input {
+    padding: 5px;
+    font-size: 16px;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-width: 1200px;
-    margin: 0 auto;
+form button {
+    padding: 6px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
-.footer-column {
-    flex: 1;
-    margin-right: 20px;
-}
-
-.footer-column h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.footer-column p {
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.footer-logo {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo-box {
-    border: 2px solid #fff; /* Borda branca */
-    padding: 40px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.icones {
-    margin: 0 16px 0 16px;
-    height: 30px;
-    width: auto;
+form button:hover {
+    background-color: #0056b3;
 }
