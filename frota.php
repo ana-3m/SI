@@ -31,6 +31,7 @@ if ($userLoggedIn) {
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/frota.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -64,7 +65,7 @@ if ($userLoggedIn) {
 <main>
     <h1>Rent-A-Car</h1>
 
-    <!-- Display success or error messages -->
+    <!-- Exibe mensagens de sucesso ou erro -->
     <?php if (!empty($_GET['status'])): ?>
         <?php if ($_GET['status'] === 'success'): ?>
             <p style="color: green;">Car added successfully!</p>
@@ -73,31 +74,54 @@ if ($userLoggedIn) {
         <?php endif; ?>
     <?php endif; ?>
 
-    <!-- Display the car list -->
+    <!-- Formulário de pesquisa -->
+    <form method="GET" action="">
+        <label for="searchMarca">Pesquisar por Marca:</label>
+        <input type="text" id="searchMarca" name="searchMarca" placeholder="Digite a marca do carro">
+        <button type="submit" style="visibility: hidden"></button>
+    </form>
+    <form method="GET" action="">
+        <label for="searchModelo">Pesquisar por Modelo:
+            <input type="text" id="searchModelo" name="searchModelo" placeholder="Digite o modelo do carro"></label>
+        <button type="submit" style="visibility: hidden"></button>
+    </form>
+    <form method="GET" action="">
+        <label for="searchCor">Pesquisar por Cor:
+            <input type="text" id="searchCor" name="searchCor" placeholder="Digite a cor do carro"></label>
+        <button type="submit" style="visibility: hidden"></button>
+    </form>
+    <form method="GET" action="">
+        <button type="submit">Limpar Filtros</button>
+    </form>
+
+    <!-- Exibe a lista de carros -->
     <h2>Available Cars:</h2>
 
     <?php
-    // Connect to PostgreSQL database
+    // Conecta ao banco de dados
     $connection = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
-    if (!$connection) {
-        echo "An error occurred while connecting to the database.<br>";
-        exit;
-    }
+    //    if (!$connection) {
+    //        echo "An error occurred while connecting to the database.<br>";
+    //        exit;
+    //    }
 
-    // Query the cars table to fetch only cars that are not reserved for today
-    $currentDate = date('Y-m-d');
-    $query = "
-        SELECT * FROM carro 
-        WHERE matricula NOT IN (
-            SELECT carro_matricula FROM reserva
-            WHERE data_ini <= $1 AND data_fim >= $1
-        )
-    ";
-    $result = pg_query_params($connection, $query, [$currentDate]);
+    // Obtém o termo de pesquisa
+    $searchModelo = $_GET['searchModelo'] ?? '';
+    $searchMarca = $_GET['searchMarca'] ?? '';
+    $searchCor = $_GET['searchCor'] ?? '';
 
-    if (!$result) {
-        echo "An error occurred while fetching data.<br>";
-        exit;
+    // Consulta a tabela de carros
+    if ($searchModelo) {
+        $query = "SELECT * FROM carro WHERE modelo ILIKE $1";
+        $result = pg_query_params($connection, $query, array('%' . $searchModelo . '%'));
+    } else if ($searchMarca) {
+        $query = "SELECT * FROM carro WHERE marca ILIKE $1";
+        $result = pg_query_params($connection, $query, array('%' . $searchMarca . '%'));
+    } else if ($searchCor) {
+        $query = "SELECT * FROM carro WHERE cor ILIKE $1";
+        $result = pg_query_params($connection, $query, array('%' . $searchCor . '%'));
+    } else {
+        $result = pg_query($connection, "SELECT * FROM carro");
     }
     ?>
 
@@ -113,7 +137,7 @@ if ($userLoggedIn) {
         </tr>
 
         <?php
-        // Loop through the query results and display them in the table
+        // Exibe os resultados da consulta na tabela
         if (pg_num_rows($result) > 0) {
             while ($row = pg_fetch_assoc($result)) {
                 echo "<tr>
@@ -130,7 +154,7 @@ if ($userLoggedIn) {
             echo "<tr><td colspan='7'>No cars available.</td></tr>";
         }
 
-        // Free result memory and close connection
+        // Libera a memória do resultado e fecha a conexão
         pg_free_result($result);
         pg_close($connection);
         ?>

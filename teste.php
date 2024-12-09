@@ -28,6 +28,8 @@ if ($userLoggedIn) {
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
+    <link href="css/frota.css" rel="stylesheet" type="text/css"/>
+
 </head>
 
 <body>
