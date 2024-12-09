@@ -46,10 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Number of reservations is required and must be a valid positive number.";
     }
 
+    $preco = filter_input(INPUT_POST, 'preco', FILTER_VALIDATE_INT);
+    if ($preco === false || $preco < 0) {
+        $errors[] = "Preco is required and must be a valid positive number.";
+    }
+
     // If no errors, insert data into the database
     if (empty($errors)) {
-        $query = "INSERT INTO carro (matricula, marca, modelo, ano, cor, kms, n_de_reservas) VALUES ($1, $2, $3, $4, $5, $6, $7)";
-        $result = pg_query_params($connection, $query, [$matricula, $marca, $modelo, $ano, $cor, $kms, $n_de_reservas]);
+        $query = "INSERT INTO carro (matricula, marca, modelo, ano, cor, kms, n_de_reservas, preco) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+        $result = pg_query_params($connection, $query, [$matricula, $marca, $modelo, $ano, $cor, $kms, $n_de_reservas, $preco]);
 
         if ($result) {
             pg_close($connection);
