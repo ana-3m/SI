@@ -16,6 +16,16 @@ form button {
     cursor: pointer;
 }
 
+form button * {
+    display: flex;
+    align-items: center;
+}
+
 form button:hover {
     background-color: #0056b3;
+}
+
+#search {
+    height: 17px;
+    width: auto;
 }

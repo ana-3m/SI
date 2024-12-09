@@ -1,15 +1,18 @@
 <?php
 session_start();
 
-// Verifica se o usuário está logado
+// Check if a user is logged in
 $userLoggedIn = isset($_SESSION['pessoa']);
 $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
 
 if ($userLoggedIn) {
-    // Verifica se o usuário logado é um funcionário
+
+    // Check if the logged-in user is a funcionario or a cliente
     $dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+
     $userLoggedIn = $_SESSION['pessoa']['email'];
 
+    // Query to check if the user is a funcionario
     $result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_email = $1", array($userLoggedIn));
     $isFuncionario = pg_num_rows($result) > 0;
 
@@ -29,14 +32,13 @@ if ($userLoggedIn) {
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
     <link href="css/frota.css" rel="stylesheet" type="text/css"/>
-
 </head>
 
 <body>
 <header>
     <div class="logo">
         <a href="index.php" title="logotipo">
-            <p>logo</p>
+            <img src="data/imagens/logo.png" alt="logo" height="50px" width="50px">
         </a>
     </div>
     <div class="menu">
@@ -72,25 +74,14 @@ if ($userLoggedIn) {
         <?php endif; ?>
     <?php endif; ?>
 
-    <!-- Formulário de pesquisa -->
+    <!-- Formulário de pesquisa único -->
     <form method="GET" action="">
-        <label for="searchMarca">Pesquisar por Marca:</label>
-        <input type="text" id="searchMarca" name="searchMarca" placeholder="Digite a marca do carro">
-        <button type="submit" style="visibility: hidden"></button>
+        <label for="searchTerm">Pesquisar:</label>
+        <input type="text" id="searchTerm" name="searchTerm" placeholder="Por exemplo: Opel">
+        <button type="submit"><img id="search" src="data/imagens/search.png" alt="search"></button><br>
+        <button type="submit" name="clear" value="1">Limpar Filtros</button>
     </form>
-    <form method="GET" action="">
-        <label for="searchModelo">Pesquisar por Modelo:
-            <input type="text" id="searchModelo" name="searchModelo" placeholder="Digite o modelo do carro"></label>
-        <button type="submit" style="visibility: hidden"></button>
-    </form>
-    <form method="GET" action="">
-        <label for="searchCor">Pesquisar por Cor:
-            <input type="text" id="searchCor" name="searchCor" placeholder="Digite a cor do carro"></label>
-        <button type="submit" style="visibility: hidden"></button>
-    </form>
-    <form method="GET" action="">
-        <button type="submit">Limpar Filtros</button>
-    </form>
+
 
     <!-- Exibe a lista de carros -->
     <h2>Available Cars:</h2>
@@ -98,28 +89,24 @@ if ($userLoggedIn) {
     <?php
     // Conecta ao banco de dados
     $connection = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
-    //    if (!$connection) {
-    //        echo "An error occurred while connecting to the database.<br>";
-    //        exit;
-    //    }
 
-    // Obtém o termo de pesquisa
-    $searchModelo = $_GET['searchModelo'] ?? '';
-    $searchMarca = $_GET['searchMarca'] ?? '';
-    $searchCor = $_GET['searchCor'] ?? '';
+    // Verifica se há um termo de pesquisa
+    $searchTerm = $_GET['searchTerm'] ?? '';
+    $clear = $_GET['clear'] ?? '';
 
-    // Consulta a tabela de carros
-    if ($searchModelo) {
-        $query = "SELECT * FROM carro WHERE modelo ILIKE $1";
-        $result = pg_query_params($connection, $query, array('%' . $searchModelo . '%'));
-    } else if ($searchMarca) {
-        $query = "SELECT * FROM carro WHERE marca ILIKE $1";
-        $result = pg_query_params($connection, $query, array('%' . $searchMarca . '%'));
-    } else if ($searchCor) {
-        $query = "SELECT * FROM carro WHERE cor ILIKE $1";
-        $result = pg_query_params($connection, $query, array('%' . $searchCor . '%'));
+    if ($clear) {
+        // Consulta padrão (sem filtros)
+        $query = "SELECT * FROM carro";
+        $result = pg_query($connection, $query);
+    } elseif ($searchTerm) {
+        // Consulta que verifica todas as colunas (marca, modelo, cor)
+        $query = "SELECT * FROM carro WHERE 
+              marca ILIKE $1 OR modelo ILIKE $1 OR cor ILIKE $1";
+        $result = pg_query_params($connection, $query, array('%' . $searchTerm . '%'));
     } else {
-        $result = pg_query($connection, "SELECT * FROM carro");
+        // Consulta padrão (sem filtros)
+        $query = "SELECT * FROM carro";
+        $result = pg_query($connection, $query);
     }
     ?>
 
@@ -174,7 +161,7 @@ if ($userLoggedIn) {
         </div>
         <div class="footer-logo">
             <div class="logo-box">
-                <p>NOSSO<br>LOGOTIPO</p>
+                <img src="data/imagens/logo.png" alt="logo" height="200px" width="200px">
             </div>
         </div>
     </div>
