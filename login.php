@@ -42,10 +42,32 @@ if (isset($_SESSION['redirect_message'])) {
         alert("<?php echo htmlspecialchars($redirect_message); ?>");
         <?php endif; ?>
     </script>
+    <link href="css/header.css" rel="stylesheet" type="text/css">
     <link href="css/login.css" rel="stylesheet" type="text/css"/>
+    <link href="css/footer.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
+<header>
+    <div class="logo">
+        <a href="index.php" title="logotipo">
+            <p>logo</p>
+        </a>
+    </div>
+    <div class="menu">
+        Menu
+        <div class="menu-options">
+            <a class="menu-option" href="frota.php">Frota</a>
+            <a class="menu-option" href="quemsomos.php">Quem somos</a>
+            <a class="menu-option" href="reservas.php">Reservas</a>
+            <a class="menu-option" href="reviews.php">Reviews</a>
+        </div>
+    </div>
+    <div style="visibility: hidden">
+
+    </div>
+</header>
+<main>
 <h1>Login</h1>
 <form method="POST" action="login.php">
     <label for="email">Email:</label>
@@ -57,5 +79,27 @@ if (isset($_SESSION['redirect_message'])) {
     <button type="submit">Login</button> 
 </form>
 <p id="small">Don't have an account? <a href="signin.php">Signup here</a>.</p>
+</main>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h2>Contactos:</h2>
+            <p>
+                239 999 999<br/>
+                rent.a.car.uc@gmail.com
+            </p>
+        </div>
+        <div class="footer-column">
+            <h2>Redes Sociais</h2> <br>
+            <img src="data/imagens/facebook.png" alt="facebook" class="icones" id="facebook"/>
+            <img src="data/imagens/instagram.png" alt="instagram" class="icones" id="instagram"/>
+        </div>
+        <div class="footer-logo">
+            <div class="logo-box">
+                <p>NOSSO<br>LOGOTIPO</p>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

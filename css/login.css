@@ -1,4 +1,4 @@
-body {
+main {
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
@@ -7,7 +7,7 @@ body {
     padding: 0;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     background-color: #f9f9f9;
 }
 
