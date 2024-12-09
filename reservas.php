@@ -54,7 +54,7 @@ $email = $_SESSION['pessoa']['email'];
         <h1>Reserva de Carros</h1>
         <form action="php/processa_reserva.php" method="post">
             <!-- Campos preenchidos automaticamente -->
-            <label for="nome">Nome Completo:</label>
+            <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($nome); ?>" readonly>
 
             <label for="email">Email:</label>
