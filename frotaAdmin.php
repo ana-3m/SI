@@ -95,7 +95,7 @@ $cars = pg_fetch_all($result);
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.php">Quem somos</a>
             <a class="menu-option" href="reservas.php">Reservas</a>
-            <a class="menu-option" href="reviews.php">Reviews</a>
+            <a class="menu-option" href="estatisticas.php">Estatísticas</a>
         </div>
     </div>
     <div class="login">
@@ -121,8 +121,6 @@ $cars = pg_fetch_all($result);
             <p style="color: red;">Error: <?= htmlspecialchars($_GET['message'] ?? 'Unknown error') ?></p>
         <?php endif; ?>
     <?php endif; ?>
-
-    <a href="estatisticas.php"><button>Estatisticas</button></a>
 
     <!-- Form to add a new car -->
     <form method="POST" action="php/add_car.php">

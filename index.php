@@ -29,7 +29,6 @@ $loginPlaceholder = $userLoggedIn ? $_SESSION['pessoa']['nome'] : 'login';
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.php">Quem somos</a>
             <a class="menu-option" href="reservas.php">Reservas</a>
-            <a class="menu-option" href="reviews.php">Reviews</a>
         </div>
     </div>
     <div class="login">

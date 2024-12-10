@@ -2,7 +2,8 @@
 session_start();
 
 // Verificar se o usuário está logado
-if (!isset($_SESSION['pessoa'])) {
+$userLoggedIn = isset($_SESSION['pessoa']);
+if (!$userLoggedIn) {
     // Armazena mensagem de alerta na sessão
     $_SESSION['redirect_message'] = "Please log in first.";
     // Redirecionar para a página de login
@@ -13,6 +14,22 @@ if (!isset($_SESSION['pessoa'])) {
 // Dados do usuário logado
 $nome = $_SESSION['pessoa']['nome'];
 $email = $_SESSION['pessoa']['email'];
+
+// Verifica se o usuário é funcionário
+$isFuncionario = false; // Valor padrão
+
+if ($userLoggedIn) {
+    $userEmail = $_SESSION['pessoa']['email']; // Certifique-se de que o e-mail está armazenado na sessão
+    $dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+
+    if ($dbconn) {
+        // Executa a consulta para verificar se é funcionário
+        $result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_email = $1", array($userEmail));
+        $isFuncionario = pg_num_rows($result) > 0;
+    } else {
+        echo "Erro ao conectar ao banco de dados.";
+    }
+}
 ?>
 
 
@@ -41,7 +58,9 @@ $email = $_SESSION['pessoa']['email'];
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.php">Quem somos</a>
             <a class="menu-option" href="reservas.php">Reservas</a>
-            <a class="menu-option" href="reviews.php">Reviews</a>
+            <?php if ($isFuncionario): ?>
+                <a class="menu-option" href="estatisticas.php">Estatísticas</a>
+            <?php endif; ?>
         </div>
     </div>
     <div class="login">

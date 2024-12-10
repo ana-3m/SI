@@ -7,6 +7,10 @@ header {
     padding: 10px 20px;
 }
 
+.login a {
+    color: white;
+    text-decoration: none;
+}
 
 .menu {
     position: relative;
@@ -34,7 +38,7 @@ header {
 }
 
 .menu:hover .menu-options {
-    transform: translateY(10%); /* Slide into view */
+    transform: translateY(0%); /* Slide into view */
 }
 
 .menu-option {
@@ -43,6 +47,7 @@ header {
     text-align: center;
     white-space: nowrap; /* Prevent text from wrapping */
     width: 100%;
+    color: #0f0f45;
 }
 
 .menu-option:hover {

@@ -2,7 +2,8 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['pessoa'])) {
+$userLoggedIn = isset($_SESSION['pessoa']);
+if (!$userLoggedIn) {
     // If no session, redirect to login page
     header("Location: login.php");
     exit;
@@ -51,6 +52,22 @@ $reservas = [];
 while ($reserva = pg_fetch_assoc($reserva_query)) {
     $reservas[] = $reserva;
 }
+
+// Verifica se o usuário é funcionário
+$isFuncionario = false; // Valor padrão
+
+if ($userLoggedIn) {
+    $userEmail = $_SESSION['pessoa']['email']; // Certifique-se de que o e-mail está armazenado na sessão
+    $dbconn = pg_connect("host=localhost dbname=postgres user=postgres password=postgres");
+
+    if ($dbconn) {
+        // Executa a consulta para verificar se é funcionário
+        $result = pg_query_params($dbconn, "SELECT n_fun FROM funcionario WHERE pessoa_email = $1", array($userEmail));
+        $isFuncionario = pg_num_rows($result) > 0;
+    } else {
+        echo "Erro ao conectar ao banco de dados.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +79,7 @@ while ($reserva = pg_fetch_assoc($reserva_query)) {
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
 <header>
@@ -76,7 +94,9 @@ while ($reserva = pg_fetch_assoc($reserva_query)) {
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.php">Quem somos</a>
             <a class="menu-option" href="reservas.php">Reservas</a>
-            <a class="menu-option" href="reviews.php">Reviews</a>
+            <?php if ($isFuncionario): ?>
+                <a class="menu-option" href="estatisticas.php">Estatísticas</a>
+            <?php endif; ?>
         </div>
     </div>
     <div style="visibility: hidden">

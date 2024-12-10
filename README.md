@@ -18,11 +18,11 @@ ordenação dos resultados.~~
 **respetivos períodos**.~~
 - ~~Adicionar um novo carro, o que inclui um custo diário para novas reservas (para além dos
 detalhes do veículo).~~
-- ~~Ocultar um carro (não pode estar alugado no momento ou já ter alguma reserva futura). 
+- ~~Ocultar um carro (**não pode estar alugado no momento ou já ter alguma reserva futura**). 
 Pode-se também fazer o inverso, i.e., passar um carro de oculto a visível.~~
-- Alterar o custo de reserva de um carro (deve ser mantido um histórico com as alterações
-de preço ao longo do tempo).
-- Ver estatísticas: total de carros, total de utilizadores que já reservaram carros, número
+- ~~Alterar o custo de reserva de um carro (deve ser mantido um histórico com as alterações
+de preço ao longo do tempo).~~
+- ~~Ver estatísticas: total de carros, total de utilizadores que já reservaram carros, número
 médio  de  reservas  por  utilizador,  custo  médio  de  um  carro  considerando  os  preços  no
 momento para todos os carros. Inclua mais uma estatística que considere útil num sistema
-deste tipo
+deste tipo~~

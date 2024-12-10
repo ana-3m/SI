@@ -60,7 +60,6 @@ if (isset($_SESSION['redirect_message'])) {
             <a class="menu-option" href="frota.php">Frota</a>
             <a class="menu-option" href="quemsomos.php">Quem somos</a>
             <a class="menu-option" href="reservas.php">Reservas</a>
-            <a class="menu-option" href="reviews.php">Reviews</a>
         </div>
     </div>
     <div style="visibility: hidden">
