@@ -141,7 +141,11 @@ $cars = pg_fetch_all($result);
         <?php if ($cars): ?>
             <?php foreach ($cars as $car): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($car['matricula']); ?></td>
+                    <td>
+                        <a href="reservasCarro.php?matricula=<?php echo urlencode($car['matricula']); ?>">
+                            <?php echo htmlspecialchars($car['matricula']); ?>
+                        </a>
+                    </td>
                     <td><?php echo htmlspecialchars($car['modelo']); ?></td>
                     <td><?php echo htmlspecialchars($car['preco']); ?></td>
                     <td><?php echo $car['visivel'] === 't' ? 'Yes' : 'No'; ?></td>
@@ -175,6 +179,7 @@ $cars = pg_fetch_all($result);
         <?php endif; ?>
         </tbody>
     </table>
+
 </main>
 </body>
 </html>
