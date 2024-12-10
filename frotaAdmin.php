@@ -25,6 +25,13 @@ if (isset($_POST['toggle_visibility'])) {
 if (isset($_POST['delete_car'])) {
     $matricula = $_POST['matricula'];
 
+    // Delete related price history entries
+    pg_query_params(
+        $dbconn,
+        "DELETE FROM historico_preco WHERE carro_matricula = $1",
+        array($matricula)
+    );
+
     pg_query_params(
         $dbconn,
         "DELETE FROM carro WHERE matricula = $1",
@@ -39,11 +46,20 @@ if (isset($_POST['edit_preco'])) {
     $new_preco = $_POST['new_preco'];
 
     if (is_numeric($new_preco) && $new_preco >= 0) {
+        // Insert new price into the historical table
+        pg_query_params(
+            $dbconn,
+            "INSERT INTO historico_preco (carro_matricula, preco) VALUES ($1, $2)",
+            array($matricula, $new_preco)
+        );
+
+        // Optionally update the current price in the main table
         pg_query_params(
             $dbconn,
             "UPDATE carro SET preco = $1 WHERE matricula = $2",
             array($new_preco, $matricula)
         );
+
         echo "<script>alert('Car price updated successfully.'); window.location.href = 'frotaAdmin.php';</script>";
     } else {
         echo "<script>alert('Invalid price. Please enter a valid number.'); window.location.href = 'frotaAdmin.php';</script>";
@@ -179,7 +195,6 @@ $cars = pg_fetch_all($result);
         <?php endif; ?>
         </tbody>
     </table>
-
 </main>
 </body>
 </html>
