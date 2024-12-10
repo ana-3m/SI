@@ -14,8 +14,8 @@ ordenação dos resultados.~~
 # Administrador:
 
 - ~~Login / Logout (nome deve ser visível em todas as páginas após o login).~~
-- Visualizar todos os carros. O detalhe de um carro deve incluir o número de reservas e
-**respetivos períodos**.
+~~- Visualizar todos os carros. O detalhe de um carro deve incluir o número de reservas e
+**respetivos períodos**.~~
 - ~~Adicionar um novo carro, o que inclui um custo diário para novas reservas (para além dos
 detalhes do veículo).~~
 - ~~Ocultar um carro (não pode estar alugado no momento ou já ter alguma reserva futura). 

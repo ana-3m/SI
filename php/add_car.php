@@ -56,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query = "INSERT INTO carro (matricula, marca, modelo, ano, cor, kms, n_de_reservas, preco) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
         $result = pg_query_params($connection, $query, [$matricula, $marca, $modelo, $ano, $cor, $kms, $n_de_reservas, $preco]);
 
+        $query = "INSERT INTO historico_preco (carro_matricula, preco) VALUES ($1, $2)";
+        $result = pg_query_params($connection, $query, [$matricula, $preco]);
+
         if ($result) {
             pg_close($connection);
             header('Location: ../frotaAdmin.php?status=success');
