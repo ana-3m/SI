@@ -31,7 +31,7 @@ if ($userLoggedIn) {
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
-    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="css/quemsomos.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -64,7 +64,26 @@ if ($userLoggedIn) {
         <?php endif; ?>
     </div>
 </header>
-<main></main>
+<main>
+    <h1>Quem Somos</h1>
+    <div class="content">
+        <p>
+            Bem-vindo à Fast & Furious Cars Inc! Somos uma empresa de aluguer de carros dedicada
+            a oferecer a melhor experiência de mobilidade para nossos clientes. Desde veículos
+            compactos a SUVs luxuosos, nossa frota foi cuidadosamente selecionada para atender
+            todas as suas necessidades.
+        </p>
+        <p>
+            Fundada com a paixão por carros e um compromisso com a excelência, a nossa missão
+            é tornar sua jornada segura, confortável e inesquecível. Estamos empenhados em
+            oferecer um serviço de alta qualidade, com preços acessíveis e total transparência.
+        </p>
+        <p>
+            A equipe da Fast & Furious Cars Inc está aqui para ajudar você a encontrar o carro
+            perfeito para cada ocasião. Confie em nós para tornar cada viagem inesquecível.
+        </p>
+    </div>
+</main>
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-column">

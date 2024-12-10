@@ -1,0 +1,19 @@
+main {
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    height: 80vh;
+}
+
+main h1 {
+    color: #0056b3;
+}
+
+main .content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-align: justify;
+}
