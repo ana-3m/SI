@@ -122,6 +122,8 @@ $cars = pg_fetch_all($result);
         <?php endif; ?>
     <?php endif; ?>
 
+    <a href="estatisticas.php"><button>Estatisticas</button></a>
+
     <!-- Form to add a new car -->
     <form method="POST" action="php/add_car.php">
         <label for="matricula">Matricula:</label><br>
