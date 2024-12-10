@@ -42,7 +42,7 @@ if ($userLoggedIn) {
     <title>rent-a-car</title>
     <link href="css/header.css" rel="stylesheet" type="text/css"/>
     <link href="css/footer.css" rel="stylesheet" type="text/css"/>
-    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="css/reservas.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -121,7 +121,7 @@ if ($userLoggedIn) {
             <input type="date" id="data_ini" name="data_ini" required>
 
             <label for="data_fim">Data de Fim:</label>
-            <input type="date" id="data_fim" name="data_fim" required>
+            <input type="date" id="data_fim" name="data_fim" required> <br>
 
             <button type="submit">Reservar</button>
         </form>
