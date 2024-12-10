@@ -38,7 +38,7 @@ $reservas = pg_fetch_all($reservas_result);
     <title>Reservas do Carro</title>
 </head>
 <body>
-<h1>Reservas para o carro <?php echo htmlspecialchars($carro['modelo'] . ' (' . $carro['matricula'] . ')'); ?></h1>
+<h1>Reservas para o carro <?php echo htmlspecialchars($carro['marca'] . " " . $carro['modelo'] . ' (' . $carro['matricula'] . ')'); ?></h1>
 <a href="frotaAdmin.php">Voltar</a>
 <table border="1">
     <thead>

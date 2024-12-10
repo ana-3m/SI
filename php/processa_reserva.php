@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<h1>Reserva criada com sucesso!</h1>";
         echo "<p>ID da reserva: $id</p>";
         echo "<p>Foi debitado $saldo_necessario unidades do saldo do cliente.</p>";
-        echo "<p>Preço pago: $preco_pago unidades.</p>";
+//        echo "<p>Preço pago: $preco_pago unidades.</p>";
         echo "<a href='../reservas.php'>Voltar</a>";
     } else {
         echo "Erro ao criar reserva: " . pg_last_error($conn);

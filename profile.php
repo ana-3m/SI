@@ -34,7 +34,7 @@ $saldo = $row ? $row['saldo'] : 0;
 // Fetch the user's reservations from the 'reserva' table
 $reserva_query = pg_query_params(
     $dbconn,
-    "SELECT r.id, r.carro_matricula, c.marca, c.modelo, r.data_ini, r.data_fim 
+    "SELECT r.id, r.carro_matricula, c.marca, c.modelo, r.data_ini, r.data_fim, r.preco_pago
      FROM reserva r
      JOIN carro c ON r.carro_matricula = c.matricula
      WHERE r.cliente_pessoa_email = $1",
@@ -99,6 +99,7 @@ while ($reserva = pg_fetch_assoc($reserva_query)) {
                         <th>Carro</th>
                         <th>Data de início</th>
                         <th>Data de fim</th>
+                        <th>Preço Pago</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -108,6 +109,7 @@ while ($reserva = pg_fetch_assoc($reserva_query)) {
                             <td><?php echo htmlspecialchars($reserva['marca'] . " " . $reserva['modelo']); ?></td>
                             <td><?php echo htmlspecialchars(date("d/m/Y", strtotime($reserva['data_ini']))); ?></td>
                             <td><?php echo htmlspecialchars(date("d/m/Y", strtotime($reserva['data_fim']))); ?></td>
+                            <td><?php echo htmlspecialchars($reserva['preco_pago']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

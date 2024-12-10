@@ -46,14 +46,14 @@ if (isset($_POST['edit_preco'])) {
     $new_preco = $_POST['new_preco'];
 
     if (is_numeric($new_preco) && $new_preco >= 0) {
-        // Insert new price into the historical table
+        // 1. Inserir o novo preço no histórico
         pg_query_params(
             $dbconn,
             "INSERT INTO historico_preco (carro_matricula, preco) VALUES ($1, $2)",
             array($matricula, $new_preco)
         );
 
-        // Optionally update the current price in the main table
+        // 2. Atualizar o preço atual na tabela carro
         pg_query_params(
             $dbconn,
             "UPDATE carro SET preco = $1 WHERE matricula = $2",
