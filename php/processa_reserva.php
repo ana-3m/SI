@@ -89,22 +89,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Gerar um ID de reserva único
-    $id = rand(100000, 999999); // Gera um número aleatório de 6 dígitos
-
-    // Inserir a nova reserva na tabela de reservas
+        // Inserir a nova reserva na tabela de reservas
     $preco_pago = $saldo_necessario; // O preço pago é o saldo necessário para a reserva
     $query = "
-        INSERT INTO reserva (id, carro_matricula, data_ini, data_fim, cliente_pessoa_email, preco_pago) 
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO reserva (carro_matricula, data_ini, data_fim, cliente_pessoa_email, preco_pago) 
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id
     ";
 
     $result = pg_query_params($conn, $query, [
-        $id, $carro_matricula, $data_ini, $data_fim, $email, $preco_pago
+        $carro_matricula, $data_ini, $data_fim, $email, $preco_pago
     ]);
 
     // Verificar se a inserção foi bem-sucedida
     if ($result) {
+        $row = pg_fetch_assoc($result);
+        $id = $row['id']; // Recupera o ID
+
         // Subtrair o saldo necessário
         $update_saldo_query = "
             UPDATE cliente 

@@ -99,7 +99,7 @@ if ($userLoggedIn) {
     $allowedSortFields = ['matricula', 'marca', 'modelo', 'ano', 'cor', 'kms', 'n_de_reservas']; // Campos válidos
 
     // Construção da consulta SQL
-    $query = "SELECT * FROM carro";
+    $query = "SELECT * FROM carro WHERE visivel = TRUE";
     $params = [];
     if ($clear) {
         // Se o botão "Limpar" for acionado, nenhuma condição será aplicada

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result) {
             // Após a inserção bem-sucedida do usuário, insira na tabela cliente com saldo inicial
-            $saldo_inicial = 100; // Saldo inicial de 100€
+            $saldo_inicial = 1000000; // Saldo inicial de 100€
             $result_cliente = pg_query_params(
                 $dbconn,
                 "INSERT INTO cliente (pessoa_email, saldo) VALUES ($1, $2)",
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <h1>Signup</h1>
-<form method="POST" action="teste.php">
+<form method="POST" action="signin.php">
     <label for="nome">Name:</label>
     <input type="text" id="nome" name="nome" placeholder="nome" required>
 

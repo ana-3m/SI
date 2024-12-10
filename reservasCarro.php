@@ -31,10 +31,10 @@ $reservas = pg_fetch_all($reservas_result);
 
 // Buscar histórico de preços do carro
 $historico_preco_query = "
-    SELECT preco, data_alteracao
+    SELECT preco, data
     FROM historico_preco
     WHERE carro_matricula = $1
-    ORDER BY data_alteracao DESC";
+    ORDER BY data DESC";
 $historico_preco_result = pg_query_params($dbconn, $historico_preco_query, array($matricula));
 $historico_preco = pg_fetch_all($historico_preco_result);
 ?>
@@ -93,7 +93,7 @@ $historico_preco = pg_fetch_all($historico_preco_result);
         <?php foreach ($historico_preco as $historico): ?>
             <tr>
                 <td><?php echo htmlspecialchars($historico['preco']); ?></td>
-                <td><?php echo htmlspecialchars($historico['data_alteracao']); ?></td>
+                <td><?php echo htmlspecialchars($historico['data']); ?></td>
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
