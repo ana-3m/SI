@@ -129,4 +129,16 @@ $email = $_SESSION['pessoa']['email'];
         </div>
     </div>
 </footer>
+<script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const dataInicio = new Date(document.getElementById('data_ini').value);
+        const dataFim = new Date(document.getElementById('data_fim').value);
+
+        if (dataInicio > dataFim) {
+            e.preventDefault(); // Impede o envio do formulário
+            alert('Erro: A data de início não pode ser posterior à data de término.');
+        }
+    });
+</script>
+</body>
 </html>

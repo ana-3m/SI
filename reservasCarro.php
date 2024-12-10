@@ -28,6 +28,15 @@ $reservas_query = "
     ORDER BY r.data_ini";
 $reservas_result = pg_query_params($dbconn, $reservas_query, array($matricula));
 $reservas = pg_fetch_all($reservas_result);
+
+// Buscar histórico de preços do carro
+$historico_preco_query = "
+    SELECT preco, data_alteracao
+    FROM historico_preco
+    WHERE carro_matricula = $1
+    ORDER BY data_alteracao DESC";
+$historico_preco_result = pg_query_params($dbconn, $historico_preco_query, array($matricula));
+$historico_preco = pg_fetch_all($historico_preco_result);
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +49,9 @@ $reservas = pg_fetch_all($reservas_result);
 <body>
 <h1>Reservas para o carro <?php echo htmlspecialchars($carro['marca'] . " " . $carro['modelo'] . ' (' . $carro['matricula'] . ')'); ?></h1>
 <a href="frotaAdmin.php">Voltar</a>
+
+<!-- Tabela de Reservas -->
+<h2>Reservas</h2>
 <table border="1">
     <thead>
     <tr>
@@ -66,5 +78,31 @@ $reservas = pg_fetch_all($reservas_result);
     <?php endif; ?>
     </tbody>
 </table>
+
+<!-- Tabela de Histórico de Preços -->
+<h2>Histórico de Preços</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Preço</th>
+        <th>Data de Alteração</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if ($historico_preco): ?>
+        <?php foreach ($historico_preco as $historico): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($historico['preco']); ?></td>
+                <td><?php echo htmlspecialchars($historico['data_alteracao']); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="2">Nenhum histórico de preços encontrado.</td>
+        </tr>
+    <?php endif; ?>
+    </tbody>
+</table>
+
 </body>
 </html>
